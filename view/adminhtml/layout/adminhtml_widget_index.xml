@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <referenceContainer name="root">
+        <block class="Sga\Widget\Block\Adminhtml\PlaceholderImage" name="wysiwyg_widget_placeholder_image" template="Sga_Widget::placeholder_image.phtml" />
+    </referenceContainer>
+</layout>

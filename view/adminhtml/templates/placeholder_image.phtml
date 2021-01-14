@@ -1,0 +1,23 @@
+<?php
+/* @var $block Sga\Widget\Block\Adminhtml\PlaceholderImage */
+$list = $block->getWidgetPlaceholderImage();
+?>
+<script>
+    require([
+        'jquery',
+    ], function($) {
+        $('#select_widget_type').on('change', function(e) {
+            var list = <?= $block->getJsonSerializer()->serialize($list) ?>;
+            var select = $('#select_widget_type');
+            if (select.val() !== '' && typeof list[select.val()] != 'undefined') {
+                select.parent().find('.placeholder-image').html('<img src="'+list[select.val()]+'" />');
+            } else {
+                select.parent().find('.placeholder-image').html('');
+            }
+        });
+
+        $('#select_widget_type').parent().append('<div class="placeholder-image"></div>');
+        $('#select_widget_type').trigger('change');
+    });
+</script>
+
