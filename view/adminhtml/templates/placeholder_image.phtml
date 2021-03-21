@@ -5,19 +5,48 @@ $list = $block->getWidgetPlaceholderImage();
 <script>
     require([
         'jquery',
-    ], function($) {
-        $('#select_widget_type').on('change', function(e) {
-            var list = <?= $block->getJsonSerializer()->serialize($list) ?>;
-            var select = $('#select_widget_type');
-            if (select.val() !== '' && typeof list[select.val()] != 'undefined') {
-                select.parent().find('.placeholder-image').html('<img src="'+list[select.val()]+'" />');
-            } else {
-                select.parent().find('.placeholder-image').html('');
+        'Magento_Ui/js/lib/view/utils/dom-observer'
+    ], function($, domObserver) {
+        var widgetList = <?= $block->getJsonSerializer()->serialize($list) ?>;
+
+        // select widget
+        domObserver.get('#select_widget_type', function (element) {
+            element = $(element);
+            if (element.parent().find('.placeholder-image').length === 0) {
+                element.parent().append('<div class="placeholder-image"></div>');
             }
+
+            element.on('change', function (e) {
+                var select = $(e.currentTarget);
+                if (select.val() !== '' && typeof widgetList[select.val()]['default'] != 'undefined') {
+                    select.parent().find('.placeholder-image').html('<img src="' + widgetList[select.val()]['default'] + '" />');
+                } else {
+                    select.parent().find('.placeholder-image').html('');
+                }
+            });
+
+            element.trigger('change');
         });
 
-        $('#select_widget_type').parent().append('<div class="placeholder-image"></div>');
-        $('#select_widget_type').trigger('change');
+        // select template
+        domObserver.get('select[name="parameters[template]"]', function (element) {
+            element = $(element);
+            if (element.parent().find('.placeholder-image').length === 0) {
+                element.parent().append('<div class="placeholder-image"></div>');
+            }
+
+            element.on('change', function(e) {
+                var selectTemplate = $(e.currentTarget);
+                var selectWidget = $('#select_widget_type');
+                if (selectWidget.val() !== '' && selectTemplate.val() !== '' && typeof widgetList[selectWidget.val()][selectTemplate.val()] != 'undefined') {
+                    selectTemplate.parent().find('.placeholder-image').html('<img src="'+ widgetList[selectWidget.val()][selectTemplate.val()] +'" />');
+                } else {
+                    selectTemplate.parent().find('.placeholder-image').html('');
+                }
+            });
+
+            element.trigger('change');
+        });
     });
 </script>
 

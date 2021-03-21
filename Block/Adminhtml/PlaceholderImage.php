@@ -36,7 +36,15 @@ class PlaceholderImage extends Template
         foreach ($allWidgets as $widget) {
             if (isset($widget['placeholder_image']) && (string)$widget['placeholder_image'] !== '') {
                 $key = $widget['@']['type'];
-                $result[$key] = $this->getViewFileUrl($widget['placeholder_image']);
+                $result[$key]['default'] = $this->getViewFileUrl($widget['placeholder_image']);
+            }
+
+            if (isset($widget['parameters']['template']['values']) && is_array($widget['parameters']['template']['values'])) {
+                foreach ($widget['parameters']['template']['values'] as $value) {
+                    if (isset($value['placeholder_image']) && $value['placeholder_image'] !== '') {
+                        $result[$key][$value['value']] = $this->getViewFileUrl($value['placeholder_image']);
+                    }
+                }
             }
         }
         return $result;

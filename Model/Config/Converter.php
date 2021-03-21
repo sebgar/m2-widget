@@ -83,13 +83,38 @@ class Converter extends \Magento\Widget\Model\Config\Converter
                 case 'depends':
                     $parameter['depends'] = $this->_convertDepends($paramSubNode);
                     break;
-                ///// BEGIN DS
+                ///// BEGIN SGA
                 case 'fieldset':
                     $parameter['fieldset'] = $paramSubNode->nodeValue;
                     break;
-                ///// END DS
+                ///// END SGA
             }
         }
         return $parameter;
+    }
+
+    protected function _convertOption($source)
+    {
+        $option = [];
+        $optionAttributes = $source->attributes;
+        $option['value'] = $optionAttributes->getNamedItem('value')->nodeValue;
+
+        ///// BEGIN SGA
+        $placeholder = $optionAttributes->getNamedItem('placeholder_image');
+        if ($placeholder !== null) {
+            $option['placeholder_image'] = $placeholder->nodeValue;
+        }
+        ///// END SGA
+
+        foreach ($source->childNodes as $childNode) {
+            if ($childNode->nodeName == '#text') {
+                continue;
+            }
+            if ($childNode->nodeName !== 'label') {
+                throw new \LogicException("Only 'label' node can be child of 'option' node");
+            }
+            $option['label'] = $childNode->nodeValue;
+        }
+        return $option;
     }
 }
