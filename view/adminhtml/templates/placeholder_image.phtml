@@ -18,7 +18,7 @@ $list = $block->getWidgetPlaceholderImage();
 
             element.on('change', function (e) {
                 var select = $(e.currentTarget);
-                if (select.val() !== '' && typeof widgetList[select.val()]['default'] != 'undefined') {
+                if (select.val() !== null && select.val() !== '' && typeof widgetList[select.val()]['default'] != 'undefined') {
                     select.parent().find('.placeholder-image').html('<img src="' + widgetList[select.val()]['default'] + '" />');
                 } else {
                     select.parent().find('.placeholder-image').html('');
@@ -38,7 +38,9 @@ $list = $block->getWidgetPlaceholderImage();
             element.on('change', function(e) {
                 var selectTemplate = $(e.currentTarget);
                 var selectWidget = $('#select_widget_type');
-                if (selectWidget.val() !== '' && selectTemplate.val() !== '' && typeof widgetList[selectWidget.val()][selectTemplate.val()] != 'undefined') {
+                if (selectWidget.val() !== null && selectWidget.val() !== ''
+                    selectTemplate.val() !== null && && selectTemplate.val() !== ''
+                    && typeof widgetList[selectWidget.val()][selectTemplate.val()] != 'undefined') {
                     selectTemplate.parent().find('.placeholder-image').html('<img src="'+ widgetList[selectWidget.val()][selectTemplate.val()] +'" />');
                 } else {
                     selectTemplate.parent().find('.placeholder-image').html('');
