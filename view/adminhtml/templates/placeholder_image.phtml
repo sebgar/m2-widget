@@ -40,7 +40,7 @@ $list = $block->getWidgetPlaceholderImage();
                 var selectWidget = $('#select_widget_type');
                 if (selectTemplate.length > 0 && selectWidget.length > 0) {
                     if (selectWidget.val() !== null && selectWidget.val() !== ''
-                        selectTemplate.val() !== null && selectTemplate.val() !== ''
+                        && selectTemplate.val() !== null && selectTemplate.val() !== ''
                         && typeof widgetList[selectWidget.val()][selectTemplate.val()] != 'undefined') {
                         selectTemplate.parent().find('.placeholder-image').html('<img src="'+ widgetList[selectWidget.val()][selectTemplate.val()] +'" />');
                     } else {
