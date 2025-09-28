@@ -38,12 +38,14 @@ $list = $block->getWidgetPlaceholderImage();
             element.on('change', function(e) {
                 var selectTemplate = $(e.currentTarget);
                 var selectWidget = $('#select_widget_type');
-                if (selectWidget.val() !== null && selectWidget.val() !== ''
-                    selectTemplate.val() !== null && && selectTemplate.val() !== ''
-                    && typeof widgetList[selectWidget.val()][selectTemplate.val()] != 'undefined') {
-                    selectTemplate.parent().find('.placeholder-image').html('<img src="'+ widgetList[selectWidget.val()][selectTemplate.val()] +'" />');
-                } else {
-                    selectTemplate.parent().find('.placeholder-image').html('');
+                if (selectTemplate.length > 0 && selectWidget.length > 0) {
+                    if (selectWidget.val() !== null && selectWidget.val() !== ''
+                        selectTemplate.val() !== null && selectTemplate.val() !== ''
+                        && typeof widgetList[selectWidget.val()][selectTemplate.val()] != 'undefined') {
+                        selectTemplate.parent().find('.placeholder-image').html('<img src="'+ widgetList[selectWidget.val()][selectTemplate.val()] +'" />');
+                    } else {
+                        selectTemplate.parent().find('.placeholder-image').html('');
+                    }
                 }
             });
 
