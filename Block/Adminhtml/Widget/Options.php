@@ -64,10 +64,10 @@ class Options extends \Magento\Widget\Block\Adminhtml\Widget\Options
 
         if (is_array($data['value'])) {
             foreach ($data['value'] as &$value) {
-                $value = html_entity_decode($value);
+                $value = html_entity_decode((string)$value);
             }
         } else {
-            $data['value'] = html_entity_decode($data['value']);
+            $data['value'] = html_entity_decode((string)$data['value']);
         }
 
         // prepare element dropdown values
