@@ -42,7 +42,7 @@ abstract class AbstractWidget extends Template implements BlockInterface
         if ($encodedStr != '') {
             $encoded = explode(',', $encodedStr);
             if (in_array($key, $encoded)) {
-                $value = base64_decode($this->getData($key));
+                $value = base64_decode((string)$this->getData($key));
             } else {
                 $value = $this->getData($key);
             }
